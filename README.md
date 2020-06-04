@@ -3,9 +3,9 @@
 javac -encoding utf-8 *.java<Enter>  
 java constructBOM<Enter>
 ## (2)「Print -> 1: Parts in BOM, 2: Work Data, 3:Order, 4:Exit」と表示されるので，  
-　BOMの部品構造を中間製品から表示するならば→1  
-　作業の順序で作業名と部品名, 作業時間を表示→2  
-　終了するならば→3(その他)  
+BOMの部品構造を中間製品から表示するならば→1  
+作業の順序で作業名と部品名, 作業時間を表示→2  
+終了するならば→3(その他)  
 を入力して＜Enter＞
 ### <1を選択>  
 (3)コマンドプロンプトにおいて　 "Part Name?" と出たら製品(部品)名を入力し，enterキーを入力する。  
