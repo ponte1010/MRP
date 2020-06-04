@@ -1,3 +1,5 @@
+# タスク
+- [] クラス図を修正
 # constructBOM.java(20180628) 
 ## (1)コマンドプロンプトにおいてconstructBOM.javaをコンパイル＆実行(以下の命令を入力)
 javac -encoding utf-8 *.java<Enter>  
