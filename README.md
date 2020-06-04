@@ -1,5 +1,8 @@
 # タスク
 - [ ] クラス図を修正
+- [ ] ファイル入出力のプログラムを作成
+- [ ] MRPシステムの実装(計算部分以外)
+- [ ] GUIの作成
 # constructBOM.java(20180628) 
 ## (1)コマンドプロンプトにおいてconstructBOM.javaをコンパイル＆実行(以下の命令を入力)
 javac -encoding utf-8 *.java<Enter>  
