@@ -3,7 +3,7 @@
 - [ ] ファイル入出力のプログラムを作成
 - [ ] MRPシステムの実装(計算部分以外)
 - [ ] GUIの作成
-- [ ] test
+- [ ] Test
 # constructBOM.java
 ## (1)コマンドプロンプトにおいてconstructBOM.javaをコンパイル＆実行
 javac -encoding utf-8 *.java<Enter>  
