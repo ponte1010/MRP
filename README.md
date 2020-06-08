@@ -35,4 +35,4 @@ BOMの部品構造を中間製品から表示するならば → 1
 ・終了</details>
 
 ## 注意事項：  
-DBとなる各種テーブルはテキスト形式として, <data_file>のフォルダに入れる
+DBとなる各種テーブルはテキスト形式として, [data_file](https://github.com/ponte1010/MRP/tree/master/src/data_file)のフォルダに入れる
