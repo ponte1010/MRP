@@ -9,8 +9,8 @@
 ## (1)コマンドプロンプトにおいてconstructBOM.javaをコンパイル＆実行
 
 ```Java:constructBOM2.bat
-javac -encoding utf-8 *.java<Enter>  
-java constructBOM<Enter>
+javac -encoding utf-8 *.java
+java constructBOM
 ```
 
 ## (2)「Print -> 1: Parts in BOM, 2: Work Data, 3:Order, 4:Exit」と表示
