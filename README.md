@@ -7,8 +7,12 @@
 - [ ] GUIの作成
 # constructBOM.java
 ## (1)コマンドプロンプトにおいてconstructBOM.javaをコンパイル＆実行
+
+```Java:constructBOM2.bat
 javac -encoding utf-8 *.java<Enter>  
 java constructBOM<Enter>
+```
+
 ## (2)「Print -> 1: Parts in BOM, 2: Work Data, 3:Order, 4:Exit」と表示
 BOMの部品構造を中間製品から表示するならば → 1  
 作業の順序で作業名と部品名, 作業時間を表示 → 2  
