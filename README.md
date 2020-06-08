@@ -8,7 +8,7 @@
 # constructBOM.java
 ## (1)コマンドプロンプトにおいてconstructBOM.javaをコンパイル＆実行
 
-```Java:constructBOM2.bat
+```
 javac -encoding utf-8 *.java
 java constructBOM
 ```
