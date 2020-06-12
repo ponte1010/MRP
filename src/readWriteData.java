@@ -79,6 +79,7 @@ public class ReadDataPlan {
 
 				if(oPlan.getStartTime()<xPlan.getStartTime()  ){
 					planList.add(i, oPlan);
+					break;      //20200611 add
 				}
 			}
 			if(planList.size()==0){
