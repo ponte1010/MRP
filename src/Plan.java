@@ -1,22 +1,31 @@
 //==============================================================================
-//		aPlan.java
-//			2020/06/06		Masahiro Arakawa
-//	.\\data\\\plan.csvÇÃ1çsÇäiî[Ç∑ÇÈ
+// Plan.java
+//	2020/06/06		Masahiro Arakawa
+//.\\data\\\plan.csv„ÅÆ1Ë°å„ÇíÊ†ºÁ¥ç„Åô„Çã
 //==============================================================================
 
 public class Plan {
 
 	//=================================================
 	String JobID;
+	String Part;
 	String Product;
 	int WC;
 	int StartTime;
 	int FinishedTime;
 	//=================================================
-	// ÉRÉìÉXÉgÉâÉNÉ^Å@èâä˙âª
 	public Plan(){
 		JobID="No-Name";
+		Part="";
 		Product="";
+		WC=-1;
+		StartTime=-1;
+		FinishedTime=-1;
+	}
+	public Plan(String xJob, String xPart, String xProduct ){
+		JobID=xJob;
+		Part=xPart;
+		Product=xProduct;
 		WC=-1;
 		StartTime=-1;
 		FinishedTime=-1;
@@ -28,6 +37,10 @@ public class Plan {
 	//-------------------------------------------------
 	public void setProduct( String xstr){
 		Product= xstr;
+	}
+	//-------------------------------------------------
+	public void setPart( String xstr){
+		Part= xstr;
 	}
 	//-------------------------------------------------
 	public void setWC( int xdata){
@@ -48,6 +61,10 @@ public class Plan {
 	//-------------------------------------------------
 	public String getProduct( ){
 		return(Product);
+	}
+	//-------------------------------------------------
+	public String getPart( ){
+		return(Part);
 	}
 	//-------------------------------------------------
 	public int getWC( ){
