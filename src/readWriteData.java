@@ -1,120 +1,121 @@
 //==============================================================================
-//		readWriteDataPlan.java
-//			2020/06/06		Masahiro Arakawa
-//	.\\data\\\plan.csv ‚©‚ç
-//  -------------------
+//readWriteDataPlan.java
+//	2020/06/06		Masahiro Arakawa
+//.\\data\\\plan.csv ã‹ã‚‰
+//-------------------
 //==============================================================================
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 
-public class ReadDataPlan {
-	static int	MAX=1000;
-	static int	flgPrint=1;
+public class readWriteData {
+static int	MAX=1000;
+static int	flgPrint=1;
+//-------------------------------------------------
+static ArrayList<Plan>	planList;					//---Plan ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆ(å…¥ã‚Œç‰©)
+//-------------------------------------------------
+static String readFName=	".\\data_csv\\plan.csv";	//è¨ˆç”»ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«(å…¥åŠ›)
+static String writeFName=	".\\data_csv\\outMRP.csv";	//è¨ˆç”»ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«(å‡ºåŠ›)
+//=================================================
+public readWriteData(  ){
+planList= new ArrayList<Plan>();
+readDaraFromCsvFile();
+}
+//==================================================
+//---  planList ã‚’å¤–éƒ¨ã‹ã‚‰getã™ã‚‹ã€€(å¤–éƒ¨ãŒãƒªã‚¹ãƒˆï¼†Planã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’åˆ©ç”¨ã™ã‚‹ã¨ãï¼Œã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’åˆ©ç”¨ã™ã‚‹)
+public static ArrayList getPlanList(){
+return(planList);
+}
+//==================================================
+//  è¨ˆç”»ãƒ‡ãƒ¼ã‚¿ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«æ ¼ç´ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰(ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã®èª­ã¿è¾¼ã¿)
+public static void readDaraFromCsvFile() {
+
+try {
+	FileReader		fr = new FileReader(readFName);
+	BufferedReader	br = new BufferedReader(fr);
+	//------------------------------------------------
+	String		s;
+	//------------------------------------------------
+	String[]	strArray;
+	int			line=0;
+	Plan		oPlan;			//Plan ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¤‰æ•°
 	//-------------------------------------------------
-	static ArrayList<Plan>	planList;					//---Plan ƒIƒuƒWƒFƒNƒg‚ÌƒŠƒXƒg(“ü‚ê•¨)
-	//-------------------------------------------------
-	static String readFName=	".\\data\\plan.csv";	//Œv‰æƒf[ƒ^ƒtƒ@ƒCƒ‹(“ü—Í)
-	static String writeFName=	".\\data\\outMRP.csv";	//Œv‰æƒf[ƒ^ƒtƒ@ƒCƒ‹(o—Í)
-	//=================================================
-	public ReadDataPlan(  ){
-		planList= new ArrayListt<Plan>();
-		readDaraFromCsvFile();
-	}
-	//==================================================
-	//---  planList ‚ğŠO•”‚©‚çget‚·‚é@(ŠO•”‚ªƒŠƒXƒg•PlanƒIƒuƒWƒFƒNƒg‚ğ—˜—p‚·‚é‚Æ‚«C‚±‚Ìƒƒ\ƒbƒh‚ğ—˜—p‚·‚é)
-	public static ArrayList getPlanList(){
-		return(planList);
-	}
-	//==================================================
-	//  Œv‰æƒf[ƒ^‚ğƒIƒuƒWƒFƒNƒg‚ÉŠi”[‚·‚éƒƒ\ƒbƒh(ƒtƒ@ƒCƒ‹‚©‚ç‚Ì“Ç‚İ‚İ)
-	public static void readDaraFromCsvFile() {
+	while((s =br.readLine( )) != null){
+		if(s.indexOf("//")>=0) continue;
 
-		try {
-			FileReader		fr = new FileReader(readFName);
-			BufferedReader	br = new BufferedReader(fr);
-			//------------------------------------------------
-			String		s;
-			//------------------------------------------------
-			String[]	strArray;
-			int			line=0;
-			Plan		oPlan;			//Plan ƒIƒuƒWƒFƒNƒg‚Ì•Ï”
-			//-------------------------------------------------
-			while((s =br.readLine( )) != null){
-				if(s.indexOf("//")>=0) continue;
+		if(flgPrint==1){
+			System.out.println((line++)+">>"+s);
+		}
+		//------ã“ã“ã‹ã‚‰---ã€€Plan ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ã™ã‚‹(ãƒ•ã‚¡ã‚¤ãƒ«ã®1è¡ŒãŒPlanã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ1ã¤ã«å¯¾å¿œã™ã‚‹)
+		strArray=s.split(",");
 
-				if(flgPrint==1){
-					System.out.println((line++)+">>"+s);
-				}
-				//------‚±‚±‚©‚ç---@Plan ƒIƒuƒWƒFƒNƒg‚Éƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğŠi”[‚·‚é(ƒtƒ@ƒCƒ‹‚Ì1s‚ªPlanƒIƒuƒWƒFƒNƒg1‚Â‚É‘Î‰‚·‚é)
-				strArray=s.split(",");
+		oPlan= new Plan();
+		oPlan.setJobID(strArray[0]);
+		oPlan.setProduct(strArray[1]);
+		oPlan.setWC(Integer.parseInt(strArray[2]));
+		oPlan.setStartTime(   Integer.parseInt(strArray[3]));
+		oPlan.setFinishedTime(Integer.parseInt(strArray[4]));
 
-				oPlan= new Plan();
-				oPlan.setJobID(strArray[0]));
-				oPlan.setProduct(strArray[1]));
-				oPlan.setWC(Integer.parseInt(strArray[2]));
-				oPlan.setStartTime(   Integer.parseInt(strArray[3]);
-				oPlan.setFinishedTime(Integer.parseInt(strArray[4]);
+		addPlan2List( oPlan );
 
-				addPlan2List( oPlan );
+	}//--- while()-end
+	fr.close( );
 
-			}//--- while()-end
-			fr.close( );
+}catch (Exception e) {
+	System.out.println("Exception: " + e);
+}
+}
+//--------------------------------------------------
+//  listã¸ã®ç™»éŒ²(é–‹å§‹æ™‚é–“é †ã«ä¸¦ã¹ã‚‹)
+public static void addPlan2List( Plan oPlan ) {
 
-		}catch (Exception e) {
-			System.out.println("Exception: " + e);
+	Plan	xPlan;
+
+	int		i;
+	for(i=0; i<planList.size();i++){
+		xPlan = planList.get(i);
+
+		if(oPlan.getStartTime()<xPlan.getStartTime()  ){
+			planList.add(i, oPlan);
+			break;      //20200611 add
 		}
 	}
-	//--------------------------------------------------
-	//  list‚Ö‚Ì“o˜^(ŠJnŠÔ‡‚É•À‚×‚é)
-	public static void addPlan2List( Plan oPlan ) {
-
-			plan	xPlan;
-
-			int		i;
-			for(i=0; i<planList.size();i++){
-				xPlan = planList.get(i);
-
-				if(oPlan.getStartTime()<xPlan.getStartTime()  ){
-					planList.add(i, oPlan);
-					break;      //20200611 add
-				}
-			}
-			if(planList.size()==0){
-				planList.add(oPlan);
-			}else if( i== <planList.size() ){
-				planList.add(oPlan);
-			}
+	if(planList.size()==0){
+		planList.add(oPlan);
+	}else if( i <= planList.size() ){
+		planList.add(oPlan);
 	}
-	//==================================================
-	// Š—v—ÊŒv‰æ‚Ìƒf[ƒ^‚ğƒtƒ@ƒCƒ‹‚Éo—Í‚·‚éƒƒ\ƒbƒh(ƒtƒ@ƒCƒ‹‚Ö‚Ìo—Í)  ŠO•”‚©‚ç—˜—p‚·‚é
-	//                                   <----- outList‚Ì’†g‚ÍŠO•”‚ÌƒvƒƒOƒ‰ƒ€‚Åì¬‚·‚é¦
-	//   ˆø”‚Í@o—Í—pŒ‹‰Ê‚ÌƒŠƒXƒg@(1s‚ÉStringŒ^‚Åo—Í“à—e‚ğ‹Lq‚·‚é) 
-	//   ---------------------------------------------------------------
-	public static int writeMRPResult2CsvFile( ArrayList<String> outList ) {
+}
+//==================================================
+// æ‰€è¦é‡è¨ˆç”»ã®ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«å‡ºåŠ›ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰(ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®å‡ºåŠ›)  å¤–éƒ¨ã‹ã‚‰åˆ©ç”¨ã™ã‚‹
+//                                   <----- outListã®ä¸­èº«ã¯å¤–éƒ¨ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§ä½œæˆã™ã‚‹â€»
+//   å¼•æ•°ã¯ã€€å‡ºåŠ›ç”¨çµæœã®ãƒªã‚¹ãƒˆã€€(1è¡Œã«Stringå‹ã§å‡ºåŠ›å†…å®¹ã‚’è¨˜è¿°ã™ã‚‹)
+//   ---------------------------------------------------------------
+public static int writeMRPResult2CsvFile( ArrayList<String> outList ) {
 
-		String str;
+String str;
 
-		try {
-			FileWriter fw =     new FileWriter(writeFName);
-			BufferedWriter bw = new BufferedWriter(fw);
+try {
+	FileWriter fw =     new FileWriter(writeFName);
+	BufferedWriter bw = new BufferedWriter(fw);
 
-			for(int i=0; i< outList.size(); i++){
-				str = outList.get(i);
-				bw.write(str);
-			}
-			//-------------------------------
-			bw.close( );
-
-			return(1);
-		}catch (Exception e) {
-			System.out.println("Exception: " + e);
-			return(-1);
-		}
-
-	
+	for(int i=0; i< outList.size(); i++){
+		str = outList.get(i);
+		bw.write(str);
 	}
-	//==================================================
+	//-------------------------------
+	bw.close( );
+
+	return(1);
+}catch (Exception e) {
+	System.out.println("Exception: " + e);
+	return(-1);
+}
+
+
+}
+//==================================================
 }
