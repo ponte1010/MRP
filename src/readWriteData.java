@@ -1,7 +1,7 @@
 //==============================================================================
-//readWriteDataPlan.java
+//readWriteData.java
 //	2020/06/06		Masahiro Arakawa
-//.\\data\\\plan.csv から
+//.\\data\\\plan.csv ､ｫ､・
 //-------------------
 //==============================================================================
 import java.io.BufferedReader;
@@ -11,111 +11,131 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 
-public class readWriteData {
-static int	MAX=1000;
-static int	flgPrint=1;
-//-------------------------------------------------
-static ArrayList<Plan>	planList;					//---Plan オブジェクトのリスト(入れ物)
-//-------------------------------------------------
-static String readFName=	".\\data_csv\\plan.csv";	//計画データファイル(入力)
-static String writeFName=	".\\data_csv\\outMRP.csv";	//計画データファイル(出力)
-//=================================================
-public readWriteData(  ){
-planList= new ArrayList<Plan>();
-readDaraFromCsvFile();
-}
-//==================================================
-//---  planList を外部からgetする　(外部がリスト＆Planオブジェクトを利用するとき，このメソッドを利用する)
-public static ArrayList getPlanList(){
-return(planList);
-}
-//==================================================
-//  計画データをオブジェクトに格納するメソッド(ファイルからの読み込み)
-public static void readDaraFromCsvFile() {
+public class ReadWriteData {
 
-try {
-	FileReader		fr = new FileReader(readFName);
-	BufferedReader	br = new BufferedReader(fr);
-	//------------------------------------------------
-	String		s;
-	//------------------------------------------------
-	String[]	strArray;
-	int			line=0;
-	Plan		oPlan;			//Plan オブジェクトの変数
+	static int	MAX=1000;
+	static int	flgPrint=1;
 	//-------------------------------------------------
-	while((s =br.readLine( )) != null){
-		if(s.indexOf("//")>=0) continue;
+	static ArrayList<Plan>	planList;					//---Plan ･ｪ･ﾖ･ｸ･ｧ･ｯ･ﾈ､ﾎ･・ｹ･ﾈ(ﾆ､・ｪ)
+	//-------------------------------------------------
+	static MRPCal	mrp;
+	//-------------------------------------------------
+	static String readFName=	".\\data\\plan.csv";	//ｷﾗｲ隘ﾇ｡ｼ･ｿ･ﾕ･｡･､･・ﾆﾎﾏ)
+	static String writeFName=	".\\data\\outMRP.csv";	//ｷﾗｲ隘ﾇ｡ｼ･ｿ･ﾕ･｡･､･・ｽﾐﾎﾏ)
+	//=================================================
 
-		if(flgPrint==1){
-			System.out.println((line++)+">>"+s);
+	public static void main(String[] args) {
+		// TODO ｼｫﾆｰﾀｸﾀｮ､ｵ､・ｿ･皈ｽ･ﾃ･ﾉ｡ｦ･ｹ･ｿ･ﾖ
+		ReadWriteData rdp= new ReadWriteData();			// ･ﾕ･｡･､･・ﾎﾆﾉ､ﾟｹ､ﾟｴﾞ､・
+		//====================================
+		// MRPｷﾗｻｻ
+		mrp= new MRPCal(planList);		//MRPCal･ｯ･鬣ｹ､ﾎ･ｪ･ﾖ･ｸ･ｧ･ｯ･ﾈｺ鋿ｮ
+		mrp.calMrp();					//MRPｷﾗｻｻ
+		//-----------------------------------
+		// ｷ・ﾌﾉｽｼｨ
+		ArrayList<String> outList= new ArrayList<String>();
+		int num= mrp.getNumPartsInList();
+		for(int i=0; i<num; i++){
+			String str=mrp.getMRPdataForPart(i);
+			outList.add(str);
 		}
-		//------ここから---　Plan オブジェクトにファイルから読み込んだデータを格納する(ファイルの1行がPlanオブジェクト1つに対応する)
-		strArray=s.split(",");
+		writeMRPResult2CsvFile( outList );
+		//===================================
+	}
+	//=================================================
+	public ReadWriteData(  ){
+		planList= new ArrayList<Plan>();
+		readDaraFromCsvFile();
+	}
+	//==================================================
+	//---  planList ､ｰﾉｫ､馮et､ｹ､・｡(ｳｰﾉｬ･・ｹ･ﾈ｡lan･ｪ･ﾖ･ｸ･ｧ･ｯ･ﾈ､ﾑ､ｹ､・ﾈ､ｭ｡､､ｳ､ﾎ･皈ｽ･ﾃ･ﾉ､ﾑ､ｹ､・
+	public static ArrayList getPlanList(){
+		return(planList);
+	}
+	//==================================================
+	//  ｷﾗｲ隘ﾇ｡ｼ･ｿ､ｪ･ﾖ･ｸ･ｧ･ｯ･ﾈ､ﾋｳﾊﾇｼ､ｹ､・皈ｽ･ﾃ･ﾉ(･ﾕ･｡･､･・ｫ､鬢ﾎﾆﾉ､ﾟｹ､ﾟ)
+	public static void readDaraFromCsvFile() {
 
-		oPlan= new Plan();
-		oPlan.setJobID(strArray[0]);
-		oPlan.setProduct(strArray[1]);
-		oPlan.setWC(Integer.parseInt(strArray[2]));
-		oPlan.setStartTime(   Integer.parseInt(strArray[3]));
-		oPlan.setFinishedTime(Integer.parseInt(strArray[4]));
+		try {
+			FileReader		fr = new FileReader(readFName);
+			BufferedReader	br = new BufferedReader(fr);
+			//------------------------------------------------
+			String		s;
+			//------------------------------------------------
+			String[]	strArray;
+			int			line=0;
+			Plan		oPlan;			//Plan ･ｪ･ﾖ･ｸ･ｧ･ｯ･ﾈ､ﾎﾊﾑｿ・
+			//-------------------------------------------------
+			while((s =br.readLine( )) != null){
+				if(s.indexOf("//")>=0) continue;
 
-		addPlan2List( oPlan );
+				if(flgPrint==1){
+					System.out.println((line++)+">>"+s);
+				}
+				//------､ｳ､ｳ､ｫ､・--｡｡Plan ･ｪ･ﾖ･ｸ･ｧ･ｯ･ﾈ､ﾋ･ﾕ･｡･､･・ｫ､鯣ﾉ､ﾟｹ､ﾀ･ﾇ｡ｼ･ｿ､ﾊﾇｼ､ｹ､・･ﾕ･｡･､･・ﾎ1ｹﾔ､ｬPlan･ｪ･ﾖ･ｸ･ｧ･ｯ･ﾈ1､ﾄ､ﾋﾂﾐｱ､ｹ､・
+				strArray=s.split(",");
 
-	}//--- while()-end
-	fr.close( );
+				oPlan= new Plan();
+				oPlan.setJobID(strArray[0]);
+				oPlan.setPart(strArray[1]);
+				oPlan.setProduct(strArray[2]);
+				oPlan.setWC(Integer.parseInt(strArray[3]));
+				oPlan.setStartTime(   Integer.parseInt(strArray[4]));
+				oPlan.setFinishedTime(Integer.parseInt(strArray[5]));
 
-}catch (Exception e) {
-	System.out.println("Exception: " + e);
-}
-}
-//--------------------------------------------------
-//  listへの登録(開始時間順に並べる)
-public static void addPlan2List( Plan oPlan ) {
+				addPlan2List( oPlan );
 
-	Plan	xPlan;
+			}//--- while()-end
+			fr.close( );
 
-	int		i;
-	for(i=0; i<planList.size();i++){
-		xPlan = planList.get(i);
-
-		if(oPlan.getStartTime()<xPlan.getStartTime()  ){
-			planList.add(i, oPlan);
-			break;      //20200611 add
+		}catch (Exception e) {
+			System.out.println("Exception: " + e);
 		}
 	}
-	if(planList.size()==0){
-		planList.add(oPlan);
-	}else if( i <= planList.size() ){
-		planList.add(oPlan);
+	//--------------------------------------------------
+	//  list､ﾘ､ﾎﾅﾐﾏｿ(ｳｫｻﾏｻｴﾖｽ遉ﾋﾊﾂ､ﾙ､・
+	public static void addPlan2List( Plan oPlan ) {
+
+			Plan	xPlan;
+
+			int		i;
+			for(i=0; i<planList.size();i++){
+				xPlan = planList.get(i);
+
+				if(oPlan.getStartTime()<xPlan.getStartTime()  ){
+					planList.add(i, oPlan);
+					break;      //20200611 add
+				}
+			}
+			if(planList.size()==0){
+				planList.add(oPlan);
+			}else if( i >= planList.size() ){
+				planList.add(oPlan);
+			}
 	}
-}
-//==================================================
-// 所要量計画のデータをファイルに出力するメソッド(ファイルへの出力)  外部から利用する
-//                                   <----- outListの中身は外部のプログラムで作成する※
-//   引数は　出力用結果のリスト　(1行にString型で出力内容を記述する)
-//   ---------------------------------------------------------------
-public static int writeMRPResult2CsvFile( ArrayList<String> outList ) {
+	//==================================================
+	// ｽ・ﾗﾎﾌｷﾗｲ隍ﾎ･ﾇ｡ｼ･ｿ､ﾕ･｡･､･・ﾋｽﾐﾎﾏ､ｹ､・皈ｽ･ﾃ･ﾉ(･ﾕ･｡･､･・ﾘ､ﾎｽﾐﾎﾏ)  ｳｰﾉｫ､鯱ﾑ､ｹ､・
+	//                                   <----- outList､ﾎﾃ豼ﾈ､ﾏｳｰﾉﾎ･ﾗ･愠ｰ･鬣爨ﾇｺ鋿ｮ､ｹ､・ｨ
+	//   ｰ惞ﾏ｡｡ｽﾐﾎﾏﾍﾑｷ・ﾌ､ﾎ･・ｹ･ﾈ｡｡(1ｹﾔ､ﾋStringｷｿ､ﾇｽﾐﾎﾏﾆ簣ﾆ､ｭｽﾒ､ｹ､・
+	//   ---------------------------------------------------------------
+	public static int writeMRPResult2CsvFile( ArrayList<String> outList ) {
+		String str;
+		try {
+			FileWriter fw =     new FileWriter(writeFName);
+			BufferedWriter bw = new BufferedWriter(fw);
 
-String str;
+			for(int i=0; i< outList.size(); i++){
+				str = outList.get(i);
+				bw.write(str);
+			}
+			//-------------------------------
+			bw.close( );
 
-try {
-	FileWriter fw =     new FileWriter(writeFName);
-	BufferedWriter bw = new BufferedWriter(fw);
-
-	for(int i=0; i< outList.size(); i++){
-		str = outList.get(i);
-		bw.write(str);
+			return(1);
+		}catch (Exception e) {
+			System.out.println("Exception: " + e);
+			return(-1);
+		}
 	}
-	//-------------------------------
-	bw.close( );
-
-	return(1);
-}catch (Exception e) {
-	System.out.println("Exception: " + e);
-	return(-1);
-}
-
-
-}
-//==================================================
+	//==================================================
 }

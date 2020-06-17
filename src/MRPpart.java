@@ -1,9 +1,9 @@
 //==============================================================================
-//		MRPpart.java
-//			2020/06/12		Masahiro Arakawa
-//	•”•i–¼‚Æmrp‚Ìƒf[ƒ^‚ğŠi”[‚·‚é1ŸŒ³”z—ñ‚ğŠi”[‚·‚é
+//MRPpart.java
+//2020/06/12		Masahiro Arakawa
+//éƒ¨å“åã¨mrpã®ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ã™ã‚‹1æ¬¡å…ƒé…åˆ—ã‚’æ ¼ç´ã™ã‚‹
+//2020/06/16		Masahiro Arakawaä¿®æ­£(ãƒ†ãƒ¼ãƒ–ãƒ«ã®å¤‰æ›´ã®ãŸã‚)
 //==============================================================================
-
 public class MRPpart {
 
 	//=================================================
@@ -11,9 +11,9 @@ public class MRPpart {
 	String part;
 	int mrpData[];
 	//=================================================
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^@‰Šú‰»
-	public MRPpart( String str){
-		part=str;
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿åˆæœŸåŒ–(2020/06/16) å¼•æ•°
+	public MRPpart( String xPart){
+		part=xPart;
 		mrpData =new int[MAX];
 		for(int i=0; i<MAX; i++){
 			mrpData[i]=0;
@@ -21,14 +21,15 @@ public class MRPpart {
 	}
 	//-------------------------------------------------
 	public void addMrpData( int xj){
-		mrpData[xj]=++;
+		mrpData[xj]++;
 	}
 	//-------------------------------------------------
 	public void setMrpData( int xj, int data){
 		mrpData[xj] += data;
 	}
 	//==================================================
-	public String getName( ){
+	//20200616ä¿®æ­£
+	public String getPartName( ){
 		return(part);
 	}
 	//-------------------------------------------------
@@ -49,8 +50,9 @@ public class MRPpart {
 		return( str );
 	}
 	//==================================================
-	public boolean compareName( String str ){
-		boolean  result= str.compareTo(part);
+	// å¤‰æ›´20200616 compareName() -> comparePartName()
+	public boolean comparePartName( String str ){
+		boolean  result= str.equals(part);  /// compareTo -> equals ï¿½ï¿½ï¿½(20200612)
 		return(result);
 	}
 	//==================================================
