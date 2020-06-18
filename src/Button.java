@@ -76,7 +76,7 @@ public class Button extends JFrame {
 		btnNewButton_2.setBounds(5, 40, 112, 42);
 		btnNewButton_2.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	System.out.println("Exit");
+		    	System.exit(0);
 		    }
 		});
 		contentPane.add(btnNewButton_2);
