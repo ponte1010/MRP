@@ -1,3 +1,5 @@
+package mrp_2;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,7 +49,7 @@ public class constructBOM {
 		parts_structure ps1;
 		try{
 			//ファイルからデータの読み取り
-			File file = new File(".\\data_file\\ownership.txt");
+			File file = new File("C:\\Users\\Yuki Shimazawa\\workspace\\MRP_3\\src\\mrp_2\\data_file\\ownership.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
 			
 			String line;
@@ -123,7 +125,7 @@ public class constructBOM {
 		String   xStr;
 		parts_structure ps;
 		try{
-			File file = new File(".\\data_file\\partsname.txt");
+			File file = new File("C:\\Users\\Yuki Shimazawa\\workspace\\MRP_3\\src\\mrp_2\\data_file\\partsname.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
 
 			String line;
@@ -155,7 +157,7 @@ public class constructBOM {
 		parts_structure ps;
 		work_data wd;
 		try{
-			File file = new File(".\\data_file\\operation.txt");
+			File file = new File("C:\\Users\\Yuki Shimazawa\\workspace\\MRP_3\\src\\mrp_2\\data_file\\operation.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
 
 			String line;
@@ -196,7 +198,7 @@ public class constructBOM {
 		work_data wd;
 		int first;
 		try{
-			File file = new File(".\\data_file\\work.txt");
+			File file = new File("C:\\Users\\Yuki Shimazawa\\workspace\\MRP_3\\src\\mrp_2\\data_file\\work.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
 
 			String line;
@@ -248,12 +250,10 @@ public class constructBOM {
 			parts_structure ps = null;
 			try {
 				BufferedReader stdReader = new BufferedReader(new InputStreamReader(System.in));
-				
 				System.out.print("Part Name? : ");
 				String line;
 				
-				while ((line = stdReader.readLine()) != null) { 
-					if (line.equals("")) break;
+				if((line = mButton.text.getText()) != null) { 
 						System.out.print("\n BOM of " + line+"\n");
 						//--------------------------------------
 						int i;
@@ -268,7 +268,7 @@ public class constructBOM {
 						}
 						//--------------------------------------
 						ps = null;
-						System.out.print("\nPart Name? : ");
+						//System.out.print("\nPart Name? : ");
 				}
 				stdReader.close();
 			} catch (Exception e) {
@@ -405,7 +405,7 @@ public class constructBOM {
 		int first;
 		try{
 			//	data[0]:受注ID，	[1]製品ID，	[2]製造数，	[3]受注日，	[4]納期
-			File file = new File(".\\data_file\\order.txt");
+			File file = new File("C:\\Users\\Yuki Shimazawa\\workspace\\MRP_3\\src\\mrp_2\\data_file\\order.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
 
 			String line;
